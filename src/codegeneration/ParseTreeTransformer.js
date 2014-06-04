@@ -188,7 +188,7 @@ export class ParseTreeTransformer {
     if (parameterList === tree.parameterList && functionBody === tree.functionBody) {
       return tree;
     }
-    return new ArrowFunctionExpression(tree.location, parameterList, functionBody);
+    return new ArrowFunctionExpression(tree.location, tree.functionKind, parameterList, functionBody);
   }
   transformAwaitExpression(tree) {
     var expression = this.transformAny(tree.expression);

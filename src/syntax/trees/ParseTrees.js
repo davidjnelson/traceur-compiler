@@ -225,11 +225,13 @@ var ARROW_FUNCTION_EXPRESSION = ParseTreeType.ARROW_FUNCTION_EXPRESSION;
 export class ArrowFunctionExpression extends ParseTree {
   /**
    * @param {SourceRange} location
+   * @param {Token} functionKind
    * @param {FormalParameterList} parameterList
    * @param {ParseTree} functionBody
    */
-  constructor(location, parameterList, functionBody) {
+  constructor(location, functionKind, parameterList, functionBody) {
     this.location = location;
+    this.functionKind = functionKind;
     this.parameterList = parameterList;
     this.functionBody = functionBody;
   }
