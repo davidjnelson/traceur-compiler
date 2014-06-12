@@ -24,6 +24,7 @@ import {
   ArrayLiteralExpression,
   ArrayPattern,
   ArrowFunctionExpression,
+  AssignmentElement,
   AwaitExpression,
   BinaryOperator,
   BindingElement,
@@ -42,7 +43,7 @@ import {
   ConditionalExpression,
   ContinueStatement,
   CoverFormals,
-  CoverInitialisedName,
+  CoverInitializedName,
   DebuggerStatement,
   DefaultClause,
   DoWhileStatement,
@@ -190,6 +191,14 @@ export class ParseTreeTransformer {
     }
     return new ArrowFunctionExpression(tree.location, tree.functionKind, parameterList, functionBody);
   }
+  transformAssignmentElement(tree) {
+    var assignment = this.transformAny(tree.assignment);
+    var initializer = this.transformAny(tree.initializer);
+    if (assignment === tree.assignment && initializer === tree.initializer) {
+      return tree;
+    }
+    return new AssignmentElement(tree.location, assignment, initializer);
+  }
   transformAwaitExpression(tree) {
     var expression = this.transformAny(tree.expression);
     if (expression === tree.expression) {
@@ -318,12 +327,12 @@ export class ParseTreeTransformer {
     }
     return new CoverFormals(tree.location, expressions);
   }
-  transformCoverInitialisedName(tree) {
+  transformCoverInitializedName(tree) {
     var initializer = this.transformAny(tree.initializer);
     if (initializer === tree.initializer) {
       return tree;
     }
-    return new CoverInitialisedName(tree.location, tree.name, tree.equalToken, initializer);
+    return new CoverInitializedName(tree.location, tree.name, tree.equalToken, initializer);
   }
   transformDebuggerStatement(tree) {
     return tree;

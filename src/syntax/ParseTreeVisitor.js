@@ -58,6 +58,10 @@ export class ParseTreeVisitor {
     this.visitAny(tree.parameterList);
     this.visitAny(tree.functionBody);
   }
+  visitAssignmentElement(tree) {
+    this.visitAny(tree.assignment);
+    this.visitAny(tree.initializer);
+  }
   visitAwaitExpression(tree) {
     this.visitAny(tree.expression);
   }
@@ -123,7 +127,7 @@ export class ParseTreeVisitor {
   visitCoverFormals(tree) {
     this.visitList(tree.expressions);
   }
-  visitCoverInitialisedName(tree) {
+  visitCoverInitializedName(tree) {
     this.visitAny(tree.initializer);
   }
   visitDebuggerStatement(tree) {

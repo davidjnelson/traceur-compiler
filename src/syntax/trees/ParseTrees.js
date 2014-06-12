@@ -258,6 +258,41 @@ export class ArrowFunctionExpression extends ParseTree {
   }
 }
 
+var ASSIGNMENT_ELEMENT = ParseTreeType.ASSIGNMENT_ELEMENT;
+export class AssignmentElement extends ParseTree {
+  /**
+   * @param {SourceRange} location
+   * @param {ParseTree} assignment
+   * @param {ParseTree} initializer
+   */
+  constructor(location, assignment, initializer) {
+    this.location = location;
+    this.assignment = assignment;
+    this.initializer = initializer;
+  }
+
+  /**
+   * @param {ParseTreeTransformer} transformer
+   */
+  transform(transformer) {
+    return transformer.transformAssignmentElement(this);
+  }
+
+  /**
+   * @param {ParseTreeVisitor} visitor
+   */
+  visit(visitor) {
+    visitor.visitAssignmentElement(this);
+  }
+
+  /**
+   * @type {ParseTreeType}
+   */
+  get type() {
+    return ASSIGNMENT_ELEMENT;
+  }
+}
+
 var AWAIT_EXPRESSION = ParseTreeType.AWAIT_EXPRESSION;
 export class AwaitExpression extends ParseTree {
   /**
@@ -882,8 +917,8 @@ export class CoverFormals extends ParseTree {
   }
 }
 
-var COVER_INITIALISED_NAME = ParseTreeType.COVER_INITIALISED_NAME;
-export class CoverInitialisedName extends ParseTree {
+var COVER_INITIALIZED_NAME = ParseTreeType.COVER_INITIALIZED_NAME;
+export class CoverInitializedName extends ParseTree {
   /**
    * @param {SourceRange} location
    * @param {Token} name
@@ -901,21 +936,21 @@ export class CoverInitialisedName extends ParseTree {
    * @param {ParseTreeTransformer} transformer
    */
   transform(transformer) {
-    return transformer.transformCoverInitialisedName(this);
+    return transformer.transformCoverInitializedName(this);
   }
 
   /**
    * @param {ParseTreeVisitor} visitor
    */
   visit(visitor) {
-    visitor.visitCoverInitialisedName(this);
+    visitor.visitCoverInitializedName(this);
   }
 
   /**
    * @type {ParseTreeType}
    */
   get type() {
-    return COVER_INITIALISED_NAME;
+    return COVER_INITIALIZED_NAME;
   }
 }
 
